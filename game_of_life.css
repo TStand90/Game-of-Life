@@ -1,0 +1,9 @@
+.cell {
+    padding: 15px;
+    border: 2px solid black;
+}
+
+.live-cell {
+    
+    background-color: blue;
+}

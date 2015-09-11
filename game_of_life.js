@@ -2,6 +2,7 @@ var turn_count = 0;
 var simulation_started = false;
 var width = 15;
 var height = 15;
+var paused = true;
 
 $(document).ready(function() {
     $('#game-grid').append('<tbody>');
@@ -29,6 +30,24 @@ $(document).ready(function() {
         }
     })
 });
+
+function play(interval) {
+    paused = false;
+    function timeLoop() {
+        setTimeout(function() {
+            if (!paused) {
+                iteration();
+                timeLoop();
+            }
+        }, 3000)
+    }
+    timeLoop();
+}
+
+function pause() {
+    console.log("Pausing...");
+    paused = true;
+}
 
 function iteration() {
     simulation_started = true;
@@ -66,7 +85,6 @@ function iteration() {
     update_grid(grid);
     update_population_count();
 }
-
 
 function get_new_cell_status(cell, grid, surrounding_cells) {
     // First, get the number of live neighbors
@@ -192,6 +210,7 @@ function update_turn_count(count) {
 }
 
 function grid_clear() {
+    paused = true;
     simulation_started = false;
     $('.live-cell').removeClass('live-cell');
     turn_count = 0;

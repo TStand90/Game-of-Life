@@ -3,6 +3,7 @@ var simulation_started = false;
 var width = 15;
 var height = 15;
 var paused = true;
+var interval = 1000;
 
 $(document).ready(function() {
     $('#game-grid').append('<tbody>');
@@ -31,7 +32,7 @@ $(document).ready(function() {
     })
 });
 
-function play(interval) {
+function play() {
     paused = false;
     function timeLoop() {
         setTimeout(function() {
@@ -39,14 +40,21 @@ function play(interval) {
                 iteration();
                 timeLoop();
             }
-        }, 3000)
+        }, interval)
     }
     timeLoop();
 }
 
 function pause() {
-    console.log("Pausing...");
     paused = true;
+}
+
+function speed_up() {
+    interval = interval / 2;
+}
+
+function slow_down() {
+    interval = interval * 2;
 }
 
 function iteration() {
